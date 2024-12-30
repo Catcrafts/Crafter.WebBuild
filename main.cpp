@@ -1,5 +1,5 @@
 /*
-Crafter.Build
+Crafter.WebBuild
 Copyright (C) 2024 Catcrafts
 
 This library is free software; you can redistribute it and/or
@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) {
         } else if(arg == "-P"){
             port = std::stoi(argv[++i]);
         } else if(arg[0] == '-'){
-            std::println("Unkown argument: {}", argv[i]);
+            std::println("Unkown argument: {}, Run crafter-webbuild help for help", argv[i]);
             return 1;
         }
     }
@@ -68,6 +68,10 @@ int main(int argc, char* argv[]) {
         Serve(project, configuration, host, port);
     } else if(command == "build"){
         Build(project, configuration);
+    } else if(command == "watch"){
+        Watch(project, configuration, host, port, projectPath.remove_filename());
+    } else if(command == "help"){
+        std::println("<watch> Builds the project and hosts it, Automatically rebuilds upon changes.\n<serve> Builds the project and hosts it.\n<build> Only builds the project.\n<help> Displays a help message.\n\n-c The name of the configuration to build.\n-p The path to the project file, defaults to project.json.\n-o Overrides the output folder.\n-P Sets the port of ``serve``, Defaults to: 8080.\n-h Sets the host which ``serve`` will listen to, Defualts to: 0.0.0.0.");
     } else {
          std::println("Invalid command, run help to get help");
     }

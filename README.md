@@ -78,6 +78,8 @@ Save and close, then run ``crafter-webbuild serve -c debug``. Now you can open t
 
 ## CLI commands
 
+``watch`` Builds the project and hosts it, Automatically rebuilds upon changes.
+
 ``serve`` Builds the project and hosts it.
 
 ``build`` Only builds the project.
@@ -85,8 +87,6 @@ Save and close, then run ``crafter-webbuild serve -c debug``. Now you can open t
 ``help`` Displays a help message.
 
 ## CLI arguments
-
-``--help`` Displays a help message.
 
 ``-c`` The name of the configuration to build.
 
