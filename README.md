@@ -28,7 +28,7 @@ export WASI_SDK_PATH=/insert/install/path/here/wasi-sdk-25.0-x86_64-linux
 
 Install Crafter.Build (If you already have Crafter.Build installed you can ignore this step)
 ```bash
-git clone https://github.com/The-Mighty-Cat/Crafter.Build.git
+git clone https://github.com/Catcrafts/Crafter.Build.git
 cd Crafter.Build
 ./build.sh
 ```
@@ -36,7 +36,7 @@ cd Crafter.Build
 
 Install Crafter.WebBuild
 ```bash
-git clone https://github.com/The-Mighty-Cat/Crafter.WebBuild.git
+git clone https://github.com/Catcrafts/Crafter.WebBuild.git
 cd Crafter.WebBuild
 crafter-build -c release
 ```
