@@ -5,7 +5,7 @@
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+ * version 3 of the License, or (at your option) any later version.
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -40,7 +40,10 @@ constexpr int BUF_LEN =  1024 * ( EVENT_SIZE + 16 );
 
 void Crafter::WebBuild::Build(const Project& project, std::string configuration, fs::path outputPath){
     project.Build(configuration, outputPath);
-    fs::copy(fs::canonical("/proc/self/exe").parent_path().parent_path()/"runtime.js", outputPath);
+    const fs::path runtimePath = fs::canonical("/proc/self/exe").parent_path().parent_path()/"runtime.js";
+    if(!fs::exists(outputPath/"runtime.js") || fs::last_write_time(runtimePath) > fs::last_write_time(outputPath/"runtime.js")){
+        fs::copy(runtimePath, outputPath);
+    }
 }
 
 void Crafter::WebBuild::Build(const Project& project, std::string configuration) {

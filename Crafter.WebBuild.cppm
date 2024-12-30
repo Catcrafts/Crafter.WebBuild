@@ -5,7 +5,7 @@
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+ * version 3 of the License, or (at your option) any later version.
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -31,7 +31,7 @@ export namespace Crafter::WebBuild {
     void Build(const Project& project, std::string configuration);
     void Build(const Project& project, std::string configuration, fs::path outputPath);
     void Serve(const Project& project, std::string configuration, std::string host, std::uint16_t port);
-        void Serve(const Project& project, std::string configuration, std::string host, std::uint16_t port, fs::path outputPath);
+    void Serve(const Project& project, std::string configuration, std::string host, std::uint16_t port, fs::path outputPath);
     void Watch(const Project& project, std::string configuration, std::string host, std::uint16_t port, fs::path watchpath);
     void Watch(const Project& project, std::string configuration, std::string host, std::uint16_t port, fs::path watchpath, fs::path outputPath);
 }
