@@ -1,0 +1,16 @@
+{
+    "name": "hello-world",
+    "configurations": [
+        {
+            "name": "debug",
+            "standard": "c++26",
+            "source_files": ["main"],
+            "module_files": [],
+            "build_dir": "./build",
+            "output_dir": "./bin",
+            "optimization_level": "0",
+            "target": "wasm32-unknown-wasi",
+            "type": "executable"
+        }
+    ]
+}

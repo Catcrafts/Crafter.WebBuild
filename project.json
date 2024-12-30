@@ -1,0 +1,50 @@
+{
+    "name": "crafter-webbuild",
+    "configurations": [
+        {
+            "name": "base",
+            "standard": "c++26",
+            "source_files": [],
+            "module_files": [],
+            "build_dir": "./build",
+            "output_dir": "./bin",
+            "dependencies": [
+                {
+                    "path":"/home/jorijn/repos/Crafter.Build/project.json",
+                    "configuration":"debug-lib"
+                }
+            ]
+        },
+        {
+            "name": "executable",
+            "extends": ["base"],
+            "type":"executable",
+            "source_files": ["main"]
+        },
+        {
+            "name": "lib",
+            "extends": ["base"],
+            "type":"library"
+        },
+        {
+            "name": "debug",
+            "extends": ["executable"],
+            "optimization_level": "0"
+        },
+        {
+            "name": "release",
+            "extends": ["executable"],
+            "optimization_level": "3"
+        },
+        {
+            "name": "debug-lib",
+            "extends": ["lib"],
+            "optimization_level": "0"
+        },
+        {
+            "name": "release-lib",
+            "extends": ["lib"],
+            "optimization_level": "3"
+        }
+    ]
+}
