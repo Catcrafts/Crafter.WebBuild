@@ -24,10 +24,11 @@ USA
 #include <format>
 #include <print>
 #include "httplib.h"
+import Crafter.WebBuild;
 import Crafter.Build;
+using namespace Crafter::WebBuild;
 using namespace Crafter::Build;
 namespace fs = std::filesystem;
-using namespace httplib;
 
 int main(int argc, char* argv[]) {
     std::string command = std::string(argv[1]);
@@ -61,34 +62,13 @@ int main(int argc, char* argv[]) {
         projectPath = path;
     }
 
-    fs::path configOutputDir;
     Project project = Project::LoadFromJSON(projectPath);
-    if(outputDir.empty()){
-        project.Build(configuration);
-    } else{
-        configOutputDir = fs::path(outputDir);
-        project.Build(configuration, configOutputDir);
-    }
-
-    for (const Configuration& config : project.configurations) {
-        if(config.name == configuration){
-            configOutputDir = config.outputDir;
-            break;
-        }
-    }
-
-    fs::copy(fs::canonical("/proc/self/exe").parent_path().parent_path()/"runtime.js", configOutputDir);
 
     if(command == "serve"){
-        httplib::Server svr;
-        svr.Get("/", [&](const Request& req, Response& res) {
-            res.set_content(std::format("<!DOCTYPE html><html><head><title>Crafter.Webbuild development page</title><script src=\"runtime.js\" id=\"runtime-script\" type=\"module\" wasmFile=\"{}.wasm\"></script></head></html>", project.name).c_str(), "text/html");
-        });
-
-        svr.set_mount_point("/", configOutputDir);
-        std::cout << std::format("Server listening on port: {}\n", port);
-        svr.listen(host, port);
-    } else if(command != "build"){
-        std::println("Invalid command, run help to get help");
+        Serve(project, configuration, host, port);
+    } else if(command == "build"){
+        Build(project, configuration);
+    } else {
+         std::println("Invalid command, run help to get help");
     }
 }

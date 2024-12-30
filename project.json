@@ -4,8 +4,8 @@
         {
             "name": "base",
             "standard": "c++26",
-            "source_files": [],
-            "module_files": [],
+            "source_files": ["Crafter.WebBuild"],
+            "module_files": ["Crafter.WebBuild"],
             "build_dir": "./build",
             "output_dir": "./bin",
             "dependencies": [
