@@ -10,8 +10,6 @@ clang 18>
 git
 Crafter.Build
 WASI SDK
-wget
-tar
 ```
 
 ## Clone and build:
