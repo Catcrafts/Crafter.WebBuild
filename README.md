@@ -127,8 +127,3 @@ Save and close, then run ``crafter-webbuild serve -c debug``. Now you can open t
 This will now link the library of Crafter.Build in the configuration you use this in.
 
 ``target`` Best to use is ``wasm32-unknown-wasi``, for advanced use please refer to the [relevant clang documentation](https://clang.llvm.org/docs/CrossCompilation.html#target-triple).
-
-Note: the WASI SDK needs to be installed to compile to webassmbly, and ``$WASI_SDK_PATH`` needs to be set, please refer to the [wasi-sdk installation guide](https://github.com/WebAssembly/wasi-sdk?tab=readme-ov-file#install).
-
-
-
