@@ -19,7 +19,7 @@ Install the [wasi-sdk](https://github.com/WebAssembly/wasi-sdk?tab=readme-ov-fil
 wget https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-25/wasi-sdk-25.0-x86_64-linux.tar.gz
 tar xvf wasi-sdk-25.0-x86_64-linux.tar.gz
 ```
-then ``nano ~./bashrc``
+then ``nano ~/.bashrc``
 ```bash
 export WASI_SDK_PATH=/insert/install/path/here/wasi-sdk-25.0-x86_64-linux
 ```
