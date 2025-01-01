@@ -1,6 +1,8 @@
 # About
 
-Crafter.WebBuild is a C++ build system specifically tailored to web development, it is an extension to [Crafter.Build](https://github.com/Catcrafts/Crafter.Build). Like Crafter.Build it uses JSON project files.
+Crafter.WebBuild is a C++ build system specifically tailored to web development. 
+
+It is an extension to [Crafter.Build](https://github.com/Catcrafts/Crafter.Build).
 
 # Install
 
