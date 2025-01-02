@@ -105,6 +105,8 @@ Save and close, then run ``crafter-webbuild serve -c debug``. Now you can open t
 
 ``module_files`` All C++ 20 module files of the project ``.cppm`` extension is assumed.
 
+``additional_files`` Files that will be copied to the output_dir.
+
 ``build_dir`` The directory where intermediate files are stored.
 
 ``output_dir`` The directory where the output files will be placed.
