@@ -39,10 +39,20 @@ constexpr int EVENT_SIZE  = sizeof(inotify_event);
 constexpr int BUF_LEN =  1024 * ( EVENT_SIZE + 16 );
 
 void Crafter::WebBuild::Build(const Project& project, std::string configuration, fs::path outputPath){
-    project.Build(configuration, outputPath);
-    const fs::path runtimePath = fs::canonical("/proc/self/exe").parent_path().parent_path()/"runtime.js";
-    if(!fs::exists(outputPath/"runtime.js") || fs::last_write_time(runtimePath) > fs::last_write_time(outputPath/"runtime.js")){
-        fs::copy(runtimePath, outputPath);
+    for(const Configuration& config : project.configurations) {
+        if(config.name == configuration){
+            project.Build(config, outputPath);
+            if(config.type == "executable") {
+                const fs::path runtimePath = fs::canonical("/proc/self/exe").parent_path().parent_path()/"runtime.js";
+                if(!fs::exists(outputPath/"runtime.js")){
+                    fs::copy(runtimePath, outputPath);
+                } else if(fs::last_write_time(runtimePath) > fs::last_write_time(outputPath/"runtime.js")){
+                    fs::remove(outputPath/"runtime.js");
+                    fs::copy(runtimePath, outputPath);
+                }
+            }
+            return;
+        }
     }
 }
 
@@ -69,12 +79,37 @@ void Crafter::WebBuild::Serve(const Project& project, std::string configuration,
     Serve(project,configuration,host,port,outputPath);
 }
 
+std::string getDependencyFiles(const Configuration& config) {
+    std::string additionalScripts;
+    for(const fs::path& file : config.additionalFiles) {
+        if(file.extension() == ".js" || file.extension() == ".mjs" || file.extension() == ".cjs") {
+            additionalScripts+=std::format("<script src=\"{}\" type=\"module\"></script>", file.filename().generic_string());
+        }
+    }
+    for(const Dependency& dep : config.dependencies) {
+        Project project = Project::LoadFromJSON(dep.path);
+        for(const Configuration& config : project.configurations) {
+            if(config.name == dep.configuration){
+                additionalScripts+=getDependencyFiles(config);
+            }
+        }
+    }
+    return additionalScripts;
+}
+
 void Crafter::WebBuild::Serve(const Project& project, std::string configuration, std::string host, std::uint16_t port, fs::path outputPath) {
     Crafter::WebBuild::Build(project, configuration, outputPath);
 
+    std::string additionalScripts;
+    for(const Configuration& config : project.configurations) {
+        if(config.name == configuration){
+            additionalScripts+=getDependencyFiles(config);
+        }
+    }
+
     httplib::Server svr;
     svr.Get("/", [&](const httplib::Request& req, httplib::Response& res) {
-        res.set_content(std::format("<!DOCTYPE html><html><head><title>Crafter.Webbuild development page</title><script src=\"runtime.js\" id=\"runtime-script\" type=\"module\" wasmFile=\"{}.wasm\"></script></head></html>", project.name).c_str(), "text/html");
+        res.set_content(std::format("<!DOCTYPE html><html><head><title>Crafter.Webbuild development page</title>{}<script src=\"runtime.js\" id=\"runtime-script\" type=\"module\" wasmFile=\"{}.wasm\"></script></head><body id=\"body\"></body></html>", additionalScripts, project.name).c_str(), "text/html");
     });
 
     svr.set_mount_point("/", outputPath);
