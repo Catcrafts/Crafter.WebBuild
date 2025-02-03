@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Prepare
-        run: sudo apt install clang lld && git clone https://github.com/Catcrafts/Crafter.Build.git && ./Crafter.Build/build.sh
+        run: sudo apt install clang lld && git clone https://github.com/Catcrafts/Crafter.Build.git && cd Crafter.Build && ./build.sh && cd ..
       - name: Build
         run: ./Crafter.Build/bin/crafter-build -c release
       - name: Release
