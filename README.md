@@ -8,7 +8,7 @@ It is an extension to [Crafter.Build](https://github.com/Catcrafts/Crafter.Build
 
 ## Prerequisites:
 ```
-Crafter.Build
+git
 WASI SDK
 ```
 
