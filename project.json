@@ -7,44 +7,57 @@
             "source_files": ["Crafter.WebBuild"],
             "module_files": ["Crafter.WebBuild"],
             "build_dir": "./build",
-            "output_dir": "./bin",
+            "output_dir": "./bin"
+        },
+        {
+            "name": "debug-base",
+            "extends": ["base"],
+            "optimization_level": "0",
             "dependencies": [
                 {
-                    "path":"/home/jorijn/repos/Crafter.Build/project.json",
+                    "path":"https://github.com/Catcrafts/Crafter.Build.git",
                     "configuration":"debug-lib"
                 }
             ]
         },
         {
-            "name": "executable",
+            "name": "release-base",
             "extends": ["base"],
+            "optimization_level": "3",
+            "dependencies": [
+                {
+                    "path":"https://github.com/Catcrafts/Crafter.Build.git",
+                    "configuration":"release-lib"
+                }
+            ]
+
+        },
+        {
+            "name": "executable",
+            "extends": [],
             "type":"executable",
             "source_files": ["main"]
         },
         {
-            "name": "lib",
-            "extends": ["base"],
+            "name": "library",
+            "extends": [],
             "type":"library"
         },
         {
             "name": "debug",
-            "extends": ["executable"],
-            "optimization_level": "0"
+            "extends": ["debug-base", "executable"]
         },
         {
             "name": "release",
-            "extends": ["executable"],
-            "optimization_level": "3"
+            "extends": ["release-base", "executable"]
         },
         {
             "name": "debug-lib",
-            "extends": ["lib"],
-            "optimization_level": "0"
+            "extends": ["debug-base", "library"]
         },
         {
             "name": "release-lib",
-            "extends": ["lib"],
-            "optimization_level": "3"
+            "extends": ["release-base", "library"]
         }
     ]
 }

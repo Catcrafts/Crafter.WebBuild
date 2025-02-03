@@ -109,7 +109,7 @@ void Crafter::WebBuild::Serve(const Project& project, std::string configuration,
 
     httplib::Server svr;
     svr.Get("/", [&](const httplib::Request& req, httplib::Response& res) {
-        res.set_content(std::format("<!DOCTYPE html><html><head><title>Crafter.Webbuild development page</title>{}<script src=\"runtime.js\" id=\"runtime-script\" type=\"module\" wasmFile=\"{}.wasm\"></script></head><body id=\"body\"></body></html>", additionalScripts, project.name).c_str(), "text/html");
+        res.set_content(std::format("<!DOCTYPE html><html><head><title>Crafter.Webbuild development page</title>{}<script src=\"runtime.js\" id=\"runtime-script\" type=\"module\" wasmFile=\"{}.wasm\"></script></head><body style=\"margin:0;\" id=\"body\"></body></html>", additionalScripts, project.name).c_str(), "text/html");
     });
 
     svr.set_mount_point("/", outputPath);

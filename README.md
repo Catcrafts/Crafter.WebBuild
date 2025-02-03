@@ -8,13 +8,12 @@ It is an extension to [Crafter.Build](https://github.com/Catcrafts/Crafter.Build
 
 ## Prerequisites:
 ```
-clang 18>
-git
 Crafter.Build
 WASI SDK
 ```
 
-## Clone and build:
+## Installing WASI
+
 Install the [wasi-sdk](https://github.com/WebAssembly/wasi-sdk?tab=readme-ov-file#install).
 ```bash
 #for x86_64 linux
@@ -25,6 +24,12 @@ then ``nano ~/.bashrc``
 ```bash
 export WASI_SDK_PATH=/insert/install/path/here/wasi-sdk-25.0-x86_64-linux
 ```
+
+## Download release
+
+Please view the latest x86 version in the [releases](https://github.com/Catcrafts/Crafter.WebBuild/releases)
+
+## Build from source
 
 Install Crafter.Build (If you already have Crafter.Build installed you can ignore this step)
 ```bash
@@ -101,7 +106,7 @@ Save and close, then run ``crafter-webbuild serve -c debug``. Now you can open t
 ## configuration properties
 ``name`` Name of the configuration.
 
-``standard`` C++ standard that this configuration uses, please refer to the [relevant clang documentation](https://clang.llvm.org/cxx_status.html)
+``standard`` C++ standard that this configuration uses, please refer to the [relevant clang documentation](https://clang.llvm.org/cxx_status.html), defaults to ``c++26``.
 
 ``source_files`` All source files of the project ``.cpp`` extension is assumed.
 
@@ -113,15 +118,21 @@ Save and close, then run ``crafter-webbuild serve -c debug``. Now you can open t
 
 ``output_dir`` The directory where the output files will be placed.
 
+``type`` The type of the project: ``executable``, ``library``, ``shared-library``, defaults to ``executable``.
+
 ``extends`` An array of configuration names that this configuration extends, later elements in the array take priority over previous ones.
 
-``optimization_level`` Please refer to the [relevant clang documentation](https://clang.llvm.org/docs/CommandGuide/clang.html#code-generation-options).
+``optimization_level`` Please refer to the [relevant clang documentation](https://clang.llvm.org/docs/CommandGuide/clang.html#code-generation-options), defaults to ``0``.
 
 ``dependencies`` An object array of the dependencies of this project, example:
 ```json
 "dependencies": [
     {
         "path":"/home/Crafter.Build/project.json",
+        "configuration":"debug-lib"
+    }
+    {
+        "path":"https://github.com/Catcrafts/Crafter.Build.git",
         "configuration":"debug-lib"
     }
 ]

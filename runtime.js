@@ -163,6 +163,8 @@ const wasi = new Wasi({
     args: []
 });
 
+window.crafter_webbuild_env.table = new WebAssembly.Table({ initial: 4, element: 'anyfunc' });
+
 const { instance } = await WebAssembly.instantiateStreaming(fetch(wasmFile), {
     "wasi_snapshot_preview1": wasi,
     env: window.crafter_webbuild_env
